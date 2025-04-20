@@ -11,6 +11,7 @@ AProjectile::AProjectile()
 
 }
 
+
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
@@ -25,3 +26,10 @@ void AProjectile::Tick(float DeltaTime)
 
 }
 
+
+void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+}
+void AProjectile::LaunchProjectile(FVector& Direction)
+{
+}
