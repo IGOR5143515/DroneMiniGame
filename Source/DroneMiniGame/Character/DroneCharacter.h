@@ -4,7 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputActionValue.h"
 #include "DroneCharacter.generated.h"
+
+class UInputMappingContext;
+class UInputAction;
+class UCameraComponent;
+class UStaticMeshComponent;
+class UFloatingPawnMovement;
 
 UCLASS()
 class DRONEMINIGAME_API ADroneCharacter : public ACharacter
@@ -15,9 +22,35 @@ public:
 	// Sets default values for this character's properties
 	ADroneCharacter();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	UInputMappingContext* DroneInputMappingContext;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	UInputAction* MoveAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	UInputAction* LookAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	UInputAction* AscendDescend;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
+	UCameraComponent* Camera;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UStaticMeshComponent* DroneMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UFloatingPawnMovement* FloatingPawnComponent;
+
+	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
+	void Ascend_Descend(const FInputActionValue& Value);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
 
 public:	
 	// Called every frame
