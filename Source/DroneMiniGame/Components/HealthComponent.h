@@ -24,5 +24,17 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	float MaxHealth = 100;
+
+	UFUNCTION()
+	void OnTakeAnyDamage(AActor* DamagedActor, 
+		float Damage, 
+		const UDamageType* DamageType,
+		AController* InstigatedBy,
+		AActor* DamageCauser);
+
+	void OnDeath();
+
+	float GetPercent();
 		
 };

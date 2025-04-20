@@ -12,6 +12,7 @@ class UInputAction;
 class UCameraComponent;
 class UStaticMeshComponent;
 class UFloatingPawnMovement;
+class UHealthComponent;
 
 UCLASS()
 class DRONEMINIGAME_API ADroneCharacter : public ACharacter
@@ -39,6 +40,10 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* DroneMesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UHealthComponent* HealthComponent;
+
 
 
 	void Move(const FInputActionValue& Value);

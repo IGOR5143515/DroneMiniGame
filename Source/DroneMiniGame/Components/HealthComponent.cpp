@@ -32,3 +32,24 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	
 }
 
+void UHealthComponent::OnTakeAnyDamage(AActor* DamagedActor,
+	float Damage, 
+	const UDamageType* DamageType, 
+	AController* InstigatedBy, 
+	AActor* DamageCauser)
+{
+	MaxHealth = FMath::Clamp(MaxHealth-Damage, 0, 100);
+
+	if (MaxHealth <= 0.0f)
+		OnDeath();
+}
+
+void UHealthComponent::OnDeath()
+{
+}
+
+float UHealthComponent::GetPercent()
+{
+	return MaxHealth/100;
+}
+

@@ -9,6 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "DroneMiniGame/Components/HealthComponent.h"
 
 // Sets default values
 ADroneCharacter::ADroneCharacter()
@@ -23,6 +24,9 @@ ADroneCharacter::ADroneCharacter()
 	DroneMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	DroneMesh->SetupAttachment(GetRootComponent());
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>("Healthcomponent");
+
+	OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
 }
 
 
@@ -50,7 +54,6 @@ void ADroneCharacter::Look(const FInputActionValue& Value)
 void ADroneCharacter::Ascend_Descend(const FInputActionValue& Value)
 {
 	float VerticalInput = Value.Get<float>();
-	UE_LOG(LogTemp, Error, TEXT("%f"), VerticalInput);
 	AddMovementInput(FVector::UpVector, VerticalInput);
 }
 
