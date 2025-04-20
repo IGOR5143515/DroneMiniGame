@@ -8,6 +8,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "GameFramework/CharacterMovementComponent.h"
+
 // Sets default values
 ADroneCharacter::ADroneCharacter()
 {
@@ -20,9 +22,6 @@ ADroneCharacter::ADroneCharacter()
 
 	DroneMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	DroneMesh->SetupAttachment(GetRootComponent());
-
-
-	FloatingPawnComponent = CreateDefaultSubobject<UFloatingPawnMovement>("FloatingPawnComponent");
 
 }
 
@@ -60,6 +59,14 @@ void ADroneCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	Camera->bUsePawnControlRotation = true;
+	
+	UCharacterMovementComponent* Move = Cast<UCharacterMovementComponent>(GetMovementComponent());
+	Move->DefaultLandMovementMode = MOVE_Flying;
+	Move->MaxFlySpeed = 700;
+	Move->BrakingFrictionFactor = 5.0;
+	Move->BrakingDecelerationFlying = 100.0f;
+	Move->GravityScale=0.0f;
+	Move->AirControl = 1.0f;
 
 
 	if (APlayerController* PC = Cast<APlayerController>(Controller)) {

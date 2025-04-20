@@ -40,8 +40,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* DroneMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UFloatingPawnMovement* FloatingPawnComponent;
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
