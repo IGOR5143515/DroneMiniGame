@@ -20,7 +20,6 @@ AProjectile::AProjectile()
 	CollisionComponent->InitSphereRadius(10.0f);
 	
 
-	CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::OnHit);
 	SetRootComponent(CollisionComponent);
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
@@ -41,6 +40,7 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+	CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::OnHit);
 	
 }
 
@@ -64,6 +64,8 @@ void AProjectile::OnHit(UPrimitiveComponent* OverlappedComponent,
 
 	if (OtherActor)
 		OtherActor->TakeDamage(Damage, FDamageEvent(), GetInstigatorController(), this);
+	OtherActor->Destroy();
+	Destroy();
 }
 void AProjectile::LaunchProjectile(FVector& Direction)
 {
