@@ -42,10 +42,14 @@ void UHealthComponent::OnTakeAnyDamage(AActor* DamagedActor,
 
 	if (MaxHealth <= 0.0f)
 		OnDeath();
+
+	UE_LOG(LogTemp, Error, TEXT("%f"), MaxHealth);
 }
 
 void UHealthComponent::OnDeath()
 {
+	AActor* Owner = GetOwner();
+	Owner->Destroy();
 }
 
 float UHealthComponent::GetPercent()

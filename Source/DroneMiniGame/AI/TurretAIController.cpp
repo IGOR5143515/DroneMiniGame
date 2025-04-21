@@ -10,8 +10,7 @@ ATurretAIController::ATurretAIController()
 {
 
 	Perception = CreateDefaultSubobject<UAIPerceptionComponent>("Perception");
-
-    
+    SetPerceptionComponent(*Perception);
 
 }
 
@@ -24,10 +23,8 @@ void ATurretAIController::Shoot()
     if (!Turret)return;
     
     FVector MuzzleLocation = Turret->GetActorLocation() + Turret->GetActorForwardVector() * 100.0f;
-
    
     FVector Direction = (CurrentTarget->GetActorLocation() - MuzzleLocation).GetSafeNormal();
-
    
     FRotator MuzzleRotation = Direction.Rotation();
 
@@ -53,10 +50,10 @@ void ATurretAIController::BeginPlay()
 
 void ATurretAIController::OnTargetPerception(AActor* Actor, FAIStimulus Stimulus)
 {
-    UE_LOG(LogTemp, Error, TEXT("PerceptionUpdate"));
+    
     if (!GetWorld())return;
 
-	if (Stimulus.WasSuccessfullySensed()&&Actor->IsA<ADroneCharacter>()) {
+	if (Stimulus.WasSuccessfullySensed()) {
 		CurrentTarget = Actor;
         GetWorld()->GetTimerManager().SetTimer(Timer, this, &ATurretAIController::Shoot, 1.0f, true);
 	}

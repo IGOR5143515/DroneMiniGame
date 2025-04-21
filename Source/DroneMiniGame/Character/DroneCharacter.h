@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "GenericTeamAgentInterface.h"
 #include "DroneCharacter.generated.h"
 
 class UInputMappingContext;
@@ -16,7 +17,7 @@ class UHealthComponent;
 class AProjectile;
 
 UCLASS()
-class DRONEMINIGAME_API ADroneCharacter : public ACharacter
+class DRONEMINIGAME_API ADroneCharacter : public ACharacter, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -49,9 +50,10 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AProjectile>ProjectileClass;
 
+	FGenericTeamId TeamID;
+
 
 	void Shoot();
-
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void Ascend_Descend(const FInputActionValue& Value);
@@ -68,4 +70,5 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual FGenericTeamId GetGenericTeamId() const override { return TeamID; }
 };

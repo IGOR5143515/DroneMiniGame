@@ -81,6 +81,8 @@ void ADroneCharacter::BeginPlay()
 	Super::BeginPlay();
 	Camera->bUsePawnControlRotation = true;
 	
+	TeamID = FGenericTeamId(1);
+
 	UCharacterMovementComponent* Move = Cast<UCharacterMovementComponent>(GetMovementComponent());
 	Move->DefaultLandMovementMode = MOVE_Flying;
 	Move->MaxFlySpeed = 700;

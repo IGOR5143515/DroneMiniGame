@@ -7,6 +7,7 @@
 #include "TurretCharacter.generated.h"
 
 class UStaticMeshComponent;
+class UHealthComponent;
 
 UCLASS()
 class DRONEMINIGAME_API ATurretCharacter : public ACharacter
@@ -38,5 +39,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Turret")
 	UStaticMeshComponent* Mesh3;
+
+	UHealthComponent* HealthComponent;
 
 };

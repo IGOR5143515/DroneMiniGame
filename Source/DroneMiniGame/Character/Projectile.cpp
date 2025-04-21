@@ -27,8 +27,8 @@ AProjectile::AProjectile()
 	
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
-	ProjectileMovement->InitialSpeed = 2000.f;
-	ProjectileMovement->MaxSpeed = 2000.f;
+	ProjectileMovement->InitialSpeed = 4000.f;
+	ProjectileMovement->MaxSpeed = 4000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 
@@ -59,12 +59,9 @@ void AProjectile::OnHit(UPrimitiveComponent* OverlappedComponent,
 	bool bFromSweep,
 	const FHitResult& SweepResult)
 {
-
-	UE_LOG(LogTemp, Error, TEXT("Ovelap"));
-
 	if (OtherActor)
 		OtherActor->TakeDamage(Damage, FDamageEvent(), GetInstigatorController(), this);
-	OtherActor->Destroy();
+	UE_LOG(LogTemp, Error, TEXT("Overlap"));
 	Destroy();
 }
 void AProjectile::LaunchProjectile(FVector& Direction)

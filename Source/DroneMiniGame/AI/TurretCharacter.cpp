@@ -4,6 +4,7 @@
 #include "DroneMiniGame/AI/TurretCharacter.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "DroneMiniGame/Components/HealthComponent.h"
 
 // Sets default values
 ATurretCharacter::ATurretCharacter()
@@ -22,6 +23,9 @@ ATurretCharacter::ATurretCharacter()
 	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>("Mesh3");
 	Mesh3->SetupAttachment(GetRootComponent());
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>("HealthComponent");
+
+	OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
 
 }
 
