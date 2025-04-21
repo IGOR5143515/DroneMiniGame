@@ -64,7 +64,7 @@ void AProjectile::OnHit(UPrimitiveComponent* OverlappedComponent,
 
 	if (OtherActor)
 		OtherActor->TakeDamage(Damage, FDamageEvent(), GetInstigatorController(), this);
-	OtherActor->Destroy();
+	//OtherActor->Destroy();
 	Destroy();
 }
 void AProjectile::LaunchProjectile(FVector& Direction)
