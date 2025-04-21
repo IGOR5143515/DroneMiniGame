@@ -14,20 +14,18 @@ AProjectile::AProjectile()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
-	StaticMesh->SetupAttachment(GetRootComponent());
-	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	SetRootComponent(StaticMesh);
+	
 
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>("CollisionComponent");
 	CollisionComponent->InitSphereRadius(10.0f);
-	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	CollisionComponent->SetCollisionObjectType(ECC_WorldDynamic);
-	CollisionComponent->SetCollisionResponseToAllChannels(ECR_Block);
-	CollisionComponent->SetNotifyRigidBodyCollision(true); 
+	
 
-	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
-	CollisionComponent->SetupAttachment(StaticMesh);
+	CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::OnHit);
+	SetRootComponent(CollisionComponent);
+
+	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
+	StaticMesh->SetupAttachment(GetRootComponent());
+	
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
 	ProjectileMovement->InitialSpeed = 2000.f;
@@ -54,11 +52,12 @@ void AProjectile::Tick(float DeltaTime)
 }
 
 
-void AProjectile::OnHit(UPrimitiveComponent* HitComp,
-	AActor* OtherActor, 
-	UPrimitiveComponent* OtherComp, 
-	FVector NormalImpulse, 
-	const FHitResult& Hit)
+void AProjectile::OnHit(UPrimitiveComponent* OverlappedComponent,
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex,
+	bool bFromSweep,
+	const FHitResult& SweepResult)
 {
 
 	UE_LOG(LogTemp, Error, TEXT("Ovelap"));

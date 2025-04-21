@@ -20,10 +20,6 @@ ADroneCharacter::ADroneCharacter()
 
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(GetRootComponent());
-	
-
-	DroneMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	DroneMesh->SetupAttachment(GetRootComponent());
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>("Healthcomponent");
 
