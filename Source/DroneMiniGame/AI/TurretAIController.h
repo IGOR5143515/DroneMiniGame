@@ -30,5 +30,5 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AProjectile>ProjectileClass;
 
-
+	FTimerHandle Timer;
 };

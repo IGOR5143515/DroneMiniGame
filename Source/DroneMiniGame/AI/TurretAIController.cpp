@@ -11,53 +11,59 @@ ATurretAIController::ATurretAIController()
 
 	Perception = CreateDefaultSubobject<UAIPerceptionComponent>("Perception");
 
-
+    
 
 }
 
 void ATurretAIController::Shoot()
 {
+
     if (!CurrentTarget || !ProjectileClass || !GetWorld()) return;
 
     ATurretCharacter* Turret = Cast<ATurretCharacter>(GetPawn());
     if (!Turret)return;
-    // Точка, откуда стреляет турель
+    
     FVector MuzzleLocation = Turret->GetActorLocation() + Turret->GetActorForwardVector() * 100.0f;
 
-    // Вектор до цели
+   
     FVector Direction = (CurrentTarget->GetActorLocation() - MuzzleLocation).GetSafeNormal();
 
-    // Ротация в сторону цели
+   
     FRotator MuzzleRotation = Direction.Rotation();
 
-    // Параметры спавна
+   
     FActorSpawnParameters SpawnParams;
     SpawnParams.Owner = this;
     SpawnParams.Instigator = GetInstigator();
 
-    // Спавн
+    
     AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
     if (Projectile)
     {
-        Projectile->LaunchProjectile(Direction); // передаём направление
+        Projectile->LaunchProjectile(Direction);
     }
 }
 
 void ATurretAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	Perception->OnTargetPerceptionUpdated.AddDynamic(this, &ATurretAIController::OnTargetPerception);
+    Perception->OnTargetPerceptionUpdated.AddDynamic(this, &ATurretAIController::OnTargetPerception);
+	
 }
 
 void ATurretAIController::OnTargetPerception(AActor* Actor, FAIStimulus Stimulus)
 {
+    UE_LOG(LogTemp, Error, TEXT("PerceptionUpdate"));
     if (!GetWorld())return;
-	if (Stimulus.WasSuccessfullySensed() && Actor->IsA<ADroneCharacter>()) {
+
+	if (Stimulus.WasSuccessfullySensed()&&Actor->IsA<ADroneCharacter>()) {
 		CurrentTarget = Actor;
-        
+        GetWorld()->GetTimerManager().SetTimer(Timer, this, &ATurretAIController::Shoot, 1.0f, true);
 	}
-	else
-		CurrentTarget = nullptr;
+    else {
+        CurrentTarget = nullptr;
+        GetWorld()->GetTimerManager().ClearTimer(Timer);
+    }
 }
 
 
