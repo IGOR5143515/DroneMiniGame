@@ -5,6 +5,8 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "Engine/DamageEvents.h"
+#include "Components/SceneComponent.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -15,13 +17,17 @@ AProjectile::AProjectile()
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
 	StaticMesh->SetupAttachment(GetRootComponent());
 	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	
+	SetRootComponent(StaticMesh);
+
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>("CollisionComponent");
 	CollisionComponent->InitSphereRadius(10.0f);
-	CollisionComponent->SetCollisionProfileName("BlockAll");
-	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
-	RootComponent = CollisionComponent;
+	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CollisionComponent->SetCollisionObjectType(ECC_WorldDynamic);
+	CollisionComponent->SetCollisionResponseToAllChannels(ECR_Block);
+	CollisionComponent->SetNotifyRigidBodyCollision(true); 
 
+	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+	CollisionComponent->SetupAttachment(StaticMesh);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
 	ProjectileMovement->InitialSpeed = 2000.f;
@@ -29,9 +35,7 @@ AProjectile::AProjectile()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 
-	InitialLifeSpan = 5.0f;
-
-
+	InitialLifeSpan = 3.0f;
 }
 
 
@@ -56,6 +60,11 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp,
 	FVector NormalImpulse, 
 	const FHitResult& Hit)
 {
+
+	UE_LOG(LogTemp, Error, TEXT("Ovelap"));
+
+	if (OtherActor)
+		OtherActor->TakeDamage(Damage, FDamageEvent(), GetInstigatorController(), this);
 }
 void AProjectile::LaunchProjectile(FVector& Direction)
 {

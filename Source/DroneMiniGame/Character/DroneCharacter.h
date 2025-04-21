@@ -13,6 +13,7 @@ class UCameraComponent;
 class UStaticMeshComponent;
 class UFloatingPawnMovement;
 class UHealthComponent;
+class AProjectile;
 
 UCLASS()
 class DRONEMINIGAME_API ADroneCharacter : public ACharacter
@@ -35,6 +36,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
 	UInputAction* AscendDescend;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	UInputAction* ShootAction;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
 	UCameraComponent* Camera;
 
@@ -44,7 +48,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UHealthComponent* HealthComponent;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AProjectile>ProjectileClass;
 
+
+	void Shoot();
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);

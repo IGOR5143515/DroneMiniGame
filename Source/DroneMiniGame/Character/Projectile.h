@@ -9,6 +9,7 @@
 class USphereComponent;
 class UProjectileMovementComponent;
 class UStaticMeshComponent;
+class USceneComponent;
 
 UCLASS()
 class DRONEMINIGAME_API AProjectile : public AActor

@@ -10,6 +10,7 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "DroneMiniGame/Components/HealthComponent.h"
+#include "DroneMiniGame/Character/Projectile.h"
 
 // Sets default values
 ADroneCharacter::ADroneCharacter()
@@ -29,6 +30,28 @@ ADroneCharacter::ADroneCharacter()
 	OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
 }
 
+
+void ADroneCharacter::Shoot()
+{
+	if (!GetWorld())return;
+	FVector Location = GetMesh()->GetSocketLocation("Muzzle") ;
+	FRotator Rotation = GetMesh()->GetSocketRotation("Muzzle");
+
+	FVector MuzzleLocation = Location;
+	FRotator MuzzleRotation = Rotation;
+	FVector Direction = Rotation.Vector();
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Instigator = this;
+	SpawnParams.Owner = this;
+	
+	AProjectile* Projectile=GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation, SpawnParams);
+	if (Projectile) {
+		
+		Projectile->LaunchProjectile(Direction);
+	}
+
+}
 
 void ADroneCharacter::Move(const FInputActionValue& Value)
 {
@@ -97,6 +120,7 @@ void ADroneCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EIC->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADroneCharacter::Move);
 		EIC->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADroneCharacter::Look);
 		EIC->BindAction(AscendDescend, ETriggerEvent::Triggered, this, &ADroneCharacter::Ascend_Descend);
+		EIC->BindAction(ShootAction, ETriggerEvent::Triggered, this, &ADroneCharacter::Shoot);
 	}
 
 }
