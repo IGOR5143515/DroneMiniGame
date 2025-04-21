@@ -19,7 +19,11 @@ void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+
+	if (AActor* Owner = GetOwner())
+	{
+		Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::OnTakeAnyDamage);
+	}
 	
 }
 

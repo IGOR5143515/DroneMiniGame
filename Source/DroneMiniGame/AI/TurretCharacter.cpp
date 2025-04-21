@@ -25,7 +25,7 @@ ATurretCharacter::ATurretCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>("HealthComponent");
 
-	OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
+	//OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
 
 }
 

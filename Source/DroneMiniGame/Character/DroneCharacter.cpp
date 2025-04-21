@@ -23,7 +23,7 @@ ADroneCharacter::ADroneCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>("Healthcomponent");
 
-	OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
+	//OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
 }
 
 
