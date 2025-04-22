@@ -9,6 +9,6 @@ Move Backward	S
 Strafe Left	A
 Strafe Right	D
 Ascend	Space
-Descend	C
+Descend	shift
 Look Around	Mouse Movement
 Shoot	Left Mouse Button
