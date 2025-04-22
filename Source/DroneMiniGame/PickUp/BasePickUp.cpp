@@ -15,9 +15,8 @@ ABasePickUp::ABasePickUp()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
-	StaticMesh->SetSimulatePhysics(true);
-	StaticMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	StaticMesh->SetupAttachment(RootComponent);
+
 
 	CollisionSphere = CreateDefaultSubobject<USphereComponent>("CollisionSphere");
 	CollisionSphere->InitSphereRadius(50.f);

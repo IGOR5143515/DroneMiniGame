@@ -35,7 +35,7 @@ void ADroneCharacter::AddAmmo(float Value)
 void ADroneCharacter::Shoot()
 {
 	if (Ammo == 0)return;
-	Ammo = FMath::Clamp(Ammo - 1, 0, 100);
+	Ammo = FMath::Clamp(Ammo - 1, 0, MaxAmmo);
 
 	if (!GetWorld())return;
 
@@ -113,6 +113,7 @@ void ADroneCharacter::BeginPlay()
 void ADroneCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
 
 }
 

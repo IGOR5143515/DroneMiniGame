@@ -9,7 +9,8 @@ void AAmmoBasePickUp::Pickup(AActor* Picker)
 
 	ADroneCharacter* Character = Cast<ADroneCharacter>(Picker);
 	if (Character) {
-		if (Character->Ammo== 100)return;
+		if (Character->Ammo== Character->MaxAmmo)return;
+
 		Character->AddAmmo(TakeAmmo);
 		Destroy();
 	}

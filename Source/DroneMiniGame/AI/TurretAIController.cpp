@@ -22,7 +22,7 @@ void ATurretAIController::Shoot()
     ATurretCharacter* Turret = Cast<ATurretCharacter>(GetPawn());
     if (!Turret)return;
     
-    FVector MuzzleLocation = Turret->Mesh3->GetComponentLocation()+ Turret->GetActorForwardVector() * 100.0f;
+    FVector MuzzleLocation = Turret->Mesh3->GetComponentLocation()+ Turret->Mesh3->GetForwardVector() * 100.0f;
    
     FVector Direction = (CurrentTarget->GetActorLocation() - MuzzleLocation).GetSafeNormal();
    
