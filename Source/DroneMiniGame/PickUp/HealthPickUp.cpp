@@ -8,7 +8,9 @@ void AHealthPickUp::Pickup(AActor* Picker)
 {
 	ADroneCharacter* Character = Cast<ADroneCharacter>(Picker);
 	if (Character) {
+		if (Character->HealthComponent->Health == 100)return;
 		Character->HealthComponent->AddHealth(Heal);
+		Destroy();
 	}
 
 

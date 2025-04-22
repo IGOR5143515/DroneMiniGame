@@ -43,7 +43,7 @@ void ABasePickUp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
 {
 	if (OtherActor&&OtherActor->IsA<ADroneCharacter>()) {
 		Pickup(OtherActor);
-		Destroy();
+		
 	}
 }
 
