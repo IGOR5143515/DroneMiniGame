@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "DroneMiniGame/Components/HealthComponent.h"
 #include "DroneMiniGame/Character/Projectile.h"
+#include "DroneMiniGame/UI/DroneWidget.h"
 
 // Sets default values
 ADroneCharacter::ADroneCharacter()
@@ -105,6 +106,12 @@ void ADroneCharacter::BeginPlay()
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer())) {
 			Subsystem->AddMappingContext(DroneInputMappingContext, 0);
 		}
+	}
+
+	if (WidgetClass) {
+		UUserWidget* WidgetInstance = CreateWidget<UUserWidget>(GetWorld(), WidgetClass);
+		if (WidgetInstance)
+			WidgetInstance->AddToViewport();
 	}
 
 }

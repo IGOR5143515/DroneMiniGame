@@ -38,6 +38,7 @@ public:
 
 	void AddHealth(float Value);
 
+	UFUNCTION(BlueprintCallable)
 	float GetPercent();
 		
 };

@@ -15,6 +15,7 @@ class UStaticMeshComponent;
 class UFloatingPawnMovement;
 class UHealthComponent;
 class AProjectile;
+class UDroneWidget;
 
 UCLASS()
 class DRONEMINIGAME_API ADroneCharacter : public ACharacter, public IGenericTeamAgentInterface
@@ -44,17 +45,20 @@ public:
 	UCameraComponent* Camera;
 
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
 	UHealthComponent* HealthComponent;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AProjectile>ProjectileClass;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,Category = "Ammo")
 	float Ammo = 100.0f;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
 	float MaxAmmo = 100.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UDroneWidget> WidgetClass;
 
 	void AddAmmo(float Value);
 
