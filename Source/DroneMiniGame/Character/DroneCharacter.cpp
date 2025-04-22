@@ -10,6 +10,7 @@
 #include "DroneMiniGame/Components/HealthComponent.h"
 #include "DroneMiniGame/Character/Projectile.h"
 #include "DroneMiniGame/UI/DroneWidget.h"
+#include "Components/CapsuleComponent.h"
 
 
 ADroneCharacter::ADroneCharacter()
@@ -21,6 +22,11 @@ ADroneCharacter::ADroneCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>("Healthcomponent");
 	
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Block);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Destructible, ECR_Overlap);
 }
 
 
