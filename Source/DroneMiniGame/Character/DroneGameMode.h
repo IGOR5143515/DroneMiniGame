@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -6,9 +5,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "DroneGameMode.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class DRONEMINIGAME_API ADroneGameMode : public AGameModeBase
 {

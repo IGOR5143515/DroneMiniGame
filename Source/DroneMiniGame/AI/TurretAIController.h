@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -8,6 +7,7 @@
 
 class AProjectile;
 class UAIPerceptionComponent;
+class UAISenseConfig_Sight;
 UCLASS()
 class DRONEMINIGAME_API ATurretAIController : public AAIController
 {
@@ -26,6 +26,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UAIPerceptionComponent* Perception;
+
+	UPROPERTY()
+	UAISenseConfig_Sight* SightConfig;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AProjectile>ProjectileClass;

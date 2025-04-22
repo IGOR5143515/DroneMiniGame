@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "DroneMiniGame/Character/Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -8,10 +6,10 @@
 #include "Engine/DamageEvents.h"
 #include "Components/SceneComponent.h"
 
-// Sets default values
+
 AProjectile::AProjectile()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	
 	PrimaryActorTick.bCanEverTick = true;
 
 	
@@ -36,7 +34,6 @@ AProjectile::AProjectile()
 }
 
 
-// Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
@@ -44,13 +41,12 @@ void AProjectile::BeginPlay()
 	
 }
 
-// Called every frame
+
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
-
 
 void AProjectile::OnHit(UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor,
@@ -61,9 +57,11 @@ void AProjectile::OnHit(UPrimitiveComponent* OverlappedComponent,
 {
 	if (OtherActor)
 		OtherActor->TakeDamage(Damage, FDamageEvent(), GetInstigatorController(), this);
-	UE_LOG(LogTemp, Error, TEXT("Overlap"));
+
+	
 	Destroy();
 }
+
 void AProjectile::LaunchProjectile(FVector& Direction)
 {
 	ProjectileMovement->Velocity = Direction * ProjectileMovement->InitialSpeed;

@@ -1,22 +1,19 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "DroneMiniGame/PickUp/BasePickUp.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 #include "DroneMiniGame/Character/DroneCharacter.h"
 
-// Sets default values
+
 ABasePickUp::ABasePickUp()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
 	StaticMesh->SetupAttachment(RootComponent);
-
+	StaticMesh->SetCollisionProfileName("BlockAll");
 
 	CollisionSphere = CreateDefaultSubobject<USphereComponent>("CollisionSphere");
 	CollisionSphere->InitSphereRadius(50.f);
@@ -26,14 +23,14 @@ ABasePickUp::ABasePickUp()
 	
 }
 
-// Called when the game starts or when spawned
+
 void ABasePickUp::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-// Called every frame
+
 void ABasePickUp::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -44,7 +41,6 @@ void ABasePickUp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
 {
 	if (OtherActor&&OtherActor->IsA<ADroneCharacter>()) {
 		Pickup(OtherActor);
-		
 	}
 }
 

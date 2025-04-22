@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "DroneMiniGame/AI/TurretAIController.h"
@@ -6,12 +5,25 @@
 #include "DroneMiniGame/Character/DroneCharacter.h"
 #include "DroneMiniGame/AI/TurretCharacter.h"
 #include "DroneMiniGame/Character/Projectile.h"
+#include "Perception/AISenseConfig_Sight.h"
+
 ATurretAIController::ATurretAIController()
 {
 
 	Perception = CreateDefaultSubobject<UAIPerceptionComponent>("Perception");
     SetPerceptionComponent(*Perception);
+    SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
 
+    SightConfig->SightRadius = 1500.0f;
+    SightConfig->LoseSightRadius = 1600.0f;
+    SightConfig->PeripheralVisionAngleDegrees = 180.0f;
+    SightConfig->SetMaxAge(0.5f);
+
+    SightConfig->DetectionByAffiliation.bDetectEnemies = true;
+    SightConfig->DetectionByAffiliation.bDetectNeutrals = false;
+    SightConfig->DetectionByAffiliation.bDetectFriendlies = false;
+
+    PerceptionComponent->ConfigureSense(*SightConfig);
 }
 
 void ATurretAIController::Shoot()
@@ -59,6 +71,7 @@ void ATurretAIController::Tick(float DeltaTime)
 void ATurretAIController::BeginPlay()
 {
 	Super::BeginPlay();
+    if (!Perception) return;
     Perception->OnTargetPerceptionUpdated.AddDynamic(this, &ATurretAIController::OnTargetPerception);
 	
 }

@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "DroneMiniGame/Character/DroneCharacter.h"
 #include "Camera/CameraComponent.h"
@@ -13,17 +11,15 @@
 #include "DroneMiniGame/Character/Projectile.h"
 #include "DroneMiniGame/UI/DroneWidget.h"
 
-// Sets default values
+
 ADroneCharacter::ADroneCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(GetRootComponent());
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>("Healthcomponent");
-
 	
 }
 
@@ -85,7 +81,6 @@ void ADroneCharacter::Ascend_Descend(const FInputActionValue& Value)
 	AddMovementInput(FVector::UpVector, VerticalInput);
 }
 
-// Called when the game starts or when spawned
 void ADroneCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -116,15 +111,14 @@ void ADroneCharacter::BeginPlay()
 
 }
 
-// Called every frame
+
 void ADroneCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-
 }
 
-// Called to bind functionality to input
+
 void ADroneCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);

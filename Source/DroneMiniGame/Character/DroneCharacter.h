@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -23,7 +22,7 @@ class DRONEMINIGAME_API ADroneCharacter : public ACharacter, public IGenericTeam
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	
 	ADroneCharacter();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
@@ -44,7 +43,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
 	UCameraComponent* Camera;
 
-
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
 	UHealthComponent* HealthComponent;
 
@@ -62,9 +60,7 @@ public:
 
 	void AddAmmo(float Value);
 
-
 	FGenericTeamId TeamID;
-
 
 	void Shoot();
 	void Move(const FInputActionValue& Value);
@@ -72,15 +68,12 @@ public:
 	void Ascend_Descend(const FInputActionValue& Value);
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
 public:	
-	// Called every frame
+
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual FGenericTeamId GetGenericTeamId() const override { return TeamID; }
