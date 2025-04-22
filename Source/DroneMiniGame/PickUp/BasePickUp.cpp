@@ -15,6 +15,8 @@ ABasePickUp::ABasePickUp()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
+	StaticMesh->SetSimulatePhysics(true);
+	StaticMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	StaticMesh->SetupAttachment(RootComponent);
 
 	CollisionSphere = CreateDefaultSubobject<USphereComponent>("CollisionSphere");
@@ -22,7 +24,7 @@ ABasePickUp::ABasePickUp()
 	CollisionSphere->SetupAttachment(RootComponent);
 	CollisionSphere->SetCollisionProfileName("OverlapAllDynamic");
 	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &ABasePickUp::OnOverlapBegin);
-
+	
 }
 
 // Called when the game starts or when spawned

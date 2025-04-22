@@ -15,7 +15,7 @@ class DRONEMINIGAME_API ATurretAIController : public AAIController
 public:
 	ATurretAIController();
 	void Shoot();
-	
+	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay();
 
 	UFUNCTION()

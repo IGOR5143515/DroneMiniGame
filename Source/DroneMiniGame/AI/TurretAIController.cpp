@@ -22,12 +22,11 @@ void ATurretAIController::Shoot()
     ATurretCharacter* Turret = Cast<ATurretCharacter>(GetPawn());
     if (!Turret)return;
     
-    FVector MuzzleLocation = Turret->GetActorLocation() + Turret->GetActorForwardVector() * 100.0f;
+    FVector MuzzleLocation = Turret->Mesh3->GetComponentLocation()+ Turret->GetActorForwardVector() * 100.0f;
    
     FVector Direction = (CurrentTarget->GetActorLocation() - MuzzleLocation).GetSafeNormal();
    
     FRotator MuzzleRotation = Direction.Rotation();
-
    
     FActorSpawnParameters SpawnParams;
     SpawnParams.Owner = this;
@@ -38,6 +37,22 @@ void ATurretAIController::Shoot()
     if (Projectile)
     {
         Projectile->LaunchProjectile(Direction);
+    }
+}
+
+void ATurretAIController::Tick(float DeltaTime)
+{
+    if (CurrentTarget) {
+        ATurretCharacter* Turret = Cast<ATurretCharacter>(GetPawn());
+        if (!Turret)return;
+
+        FVector MuzzleLocation = Turret->Mesh3->GetComponentLocation() + Turret->GetActorForwardVector() * 100.0f;
+
+        FVector Direction = (CurrentTarget->GetActorLocation() - MuzzleLocation).GetSafeNormal();
+
+        FRotator MuzzleRotation = Direction.Rotation();
+
+        Turret->Mesh3->SetWorldRotation(MuzzleRotation);
     }
 }
 
@@ -55,6 +70,7 @@ void ATurretAIController::OnTargetPerception(AActor* Actor, FAIStimulus Stimulus
 
 	if (Stimulus.WasSuccessfullySensed()) {
 		CurrentTarget = Actor;
+
         GetWorld()->GetTimerManager().SetTimer(Timer, this, &ATurretAIController::Shoot, 1.0f, true);
 	}
     else {
