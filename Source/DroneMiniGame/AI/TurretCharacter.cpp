@@ -25,8 +25,6 @@ ATurretCharacter::ATurretCharacter()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>("HealthComponent");
 
-	//OnTakeAnyDamage.AddDynamic(HealthComponent, &UHealthComponent::OnTakeAnyDamage);
-
 }
 
 // Called when the game starts or when spawned
