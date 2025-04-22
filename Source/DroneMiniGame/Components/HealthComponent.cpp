@@ -42,12 +42,12 @@ void UHealthComponent::OnTakeAnyDamage(AActor* DamagedActor,
 	AController* InstigatedBy, 
 	AActor* DamageCauser)
 {
-	MaxHealth = FMath::Clamp(MaxHealth-Damage, 0, 100);
+	Health = FMath::Clamp(Health-Damage, 0, MaxHealth);
 
-	if (MaxHealth <= 0.0f)
+	if (Health <= 0.0f)
 		OnDeath();
 
-	UE_LOG(LogTemp, Error, TEXT("%f"), MaxHealth);
+	UE_LOG(LogTemp, Error, TEXT("%f"), Health);
 }
 
 void UHealthComponent::OnDeath()
@@ -56,8 +56,15 @@ void UHealthComponent::OnDeath()
 	Owner->Destroy();
 }
 
+void UHealthComponent::AddHealth(float Value)
+{
+	Health = FMath::Clamp(Health + Value, 0, MaxHealth);
+
+	UE_LOG(LogTemp, Error, TEXT("%f"), Health);
+}
+
 float UHealthComponent::GetPercent()
 {
-	return MaxHealth/100;
+	return Health/MaxHealth;
 }
 

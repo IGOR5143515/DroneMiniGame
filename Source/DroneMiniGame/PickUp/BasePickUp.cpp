@@ -4,6 +4,7 @@
 #include "DroneMiniGame/PickUp/BasePickUp.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "DroneMiniGame/Character/DroneCharacter.h"
 
 // Sets default values
 ABasePickUp::ABasePickUp()
@@ -40,7 +41,7 @@ void ABasePickUp::Tick(float DeltaTime)
 
 void ABasePickUp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor&&OtherActor!=this) {
+	if (OtherActor&&OtherActor->IsA<ADroneCharacter>()) {
 		Pickup(OtherActor);
 		Destroy();
 	}

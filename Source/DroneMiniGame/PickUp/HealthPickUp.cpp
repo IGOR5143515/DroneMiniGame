@@ -2,8 +2,14 @@
 
 
 #include "DroneMiniGame/PickUp/HealthPickUp.h"
-
+#include "DroneMiniGame/Character/DroneCharacter.h"
+#include "DroneMiniGame/Components/HealthComponent.h"
 void AHealthPickUp::Pickup(AActor* Picker)
 {
-	UE_LOG(LogTemp, Error, TEXT("Take Health"));
+	ADroneCharacter* Character = Cast<ADroneCharacter>(Picker);
+	if (Character) {
+		Character->HealthComponent->AddHealth(Heal);
+	}
+
+
 }

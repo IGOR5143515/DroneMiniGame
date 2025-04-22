@@ -6,9 +6,7 @@
 #include "DroneMiniGame/PickUp/BasePickUp.h"
 #include "HealthPickUp.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class DRONEMINIGAME_API AHealthPickUp : public ABasePickUp
 {
@@ -16,4 +14,7 @@ class DRONEMINIGAME_API AHealthPickUp : public ABasePickUp
 public:
 
 	virtual void Pickup(AActor* Picker)override;
+
+	UPROPERTY(EditDefaultsOnly)
+	float Heal = 10;
 };

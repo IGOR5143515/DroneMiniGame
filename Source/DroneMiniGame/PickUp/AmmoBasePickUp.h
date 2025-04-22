@@ -13,5 +13,12 @@ UCLASS()
 class DRONEMINIGAME_API AAmmoBasePickUp : public ABasePickUp
 {
 	GENERATED_BODY()
+public:
+	virtual void Pickup(AActor* Picker)override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
+	float TakeAmmo=10.0f;
+
+
 	
 };

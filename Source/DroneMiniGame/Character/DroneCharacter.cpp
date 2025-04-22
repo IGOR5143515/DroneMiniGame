@@ -27,9 +27,18 @@ ADroneCharacter::ADroneCharacter()
 }
 
 
+void ADroneCharacter::AddAmmo(float Value)
+{
+	Ammo = FMath::Clamp(Ammo + Value, 0, MaxAmmo);
+}
+
 void ADroneCharacter::Shoot()
 {
+	if (Ammo == 0)return;
+	Ammo = FMath::Clamp(Ammo - 1, 0, 100);
+
 	if (!GetWorld())return;
+
 	FVector Location = GetMesh()->GetSocketLocation("Muzzle") ;
 	FRotator Rotation = GetMesh()->GetSocketRotation("Muzzle");
 

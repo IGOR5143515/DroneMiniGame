@@ -50,6 +50,15 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AProjectile>ProjectileClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
+	float Ammo = 100.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Ammo")
+	float MaxAmmo = 100.0f;
+
+	void AddAmmo(float Value);
+
+
 	FGenericTeamId TeamID;
 
 

@@ -24,7 +24,8 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	float MaxHealth = 100;
+	const float MaxHealth = 100;
+	float Health = 100;
 
 	UFUNCTION()
 	void OnTakeAnyDamage(AActor* DamagedActor, 
@@ -34,6 +35,8 @@ public:
 		AActor* DamageCauser);
 
 	void OnDeath();
+
+	void AddHealth(float Value);
 
 	float GetPercent();
 		
