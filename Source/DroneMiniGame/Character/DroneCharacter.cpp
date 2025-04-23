@@ -52,7 +52,7 @@ void ADroneCharacter::Shoot()
 	SpawnParams.Instigator = this;
 	SpawnParams.Owner = this;
 	
-	AProjectile* Projectile=GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation, SpawnParams);
+	AProjectile* Projectile=GetWorld()->SpawnActor<AProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
 	if (Projectile) {
 		FVector Direction = Camera->GetComponentRotation().Vector();
 		Projectile->LaunchProjectile(Direction);
